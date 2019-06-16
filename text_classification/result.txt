@@ -1,0 +1,142 @@
+==================================================================
+#### svm experiment 0
+Best parameters set found on development set:
+
+{'C': 1, 'kernel': 'linear'}
+
+Grid scores on development set:
+
+0.862 (+/-0.013) for {'C': 1, 'kernel': 'linear'}
+
+Detailed classification report:
+
+The model is trained on the full train set.
+The scores are computed on the full train set. 0.8760601478643295
+
+             precision    recall  f1-score   support
+
+  discovery       0.97      0.85      0.91      4000
+      essay       0.74      0.95      0.83      4000
+      story       0.92      0.78      0.84      4000
+
+avg / total       0.88      0.86      0.86     12000
+
+The model is trained on the full development set.
+The scores are computed on the full evaluation set. 0.8661572868859645
+
+             precision    recall  f1-score   support
+
+  discovery       0.96      0.84      0.90      2000
+      essay       0.73      0.94      0.83      2000
+      story       0.91      0.76      0.83      2000
+
+avg / total       0.87      0.85      0.85      6000
+
+
+The scores are computed on the full evaluation set. 0.8547966927990794
+
+             precision    recall  f1-score   support
+
+  discovery       0.96      0.84      0.90      2000
+      essay       0.72      0.92      0.81      2000
+      story       0.89      0.74      0.81      2000
+
+avg / total       0.85      0.84      0.84      6000
+
+
+Process finished with exit code 0
+
+==================================================================
+#### svm experiment 1
+min_df=0.010, max_df=0.5
+
+Train shape: (12000, 92)
+Test shape: (6000, 92)
+Dev shape: (6000, 92)
+
+
+The Test Accuracy of Naive Bayes Classifier is: 0.7571666666666667
+             precision    recall  f1-score   support
+
+  discovery       0.86      0.71      0.78      2000
+      story       0.64      0.88      0.74      2000
+      essay       0.86      0.68      0.76      2000
+
+avg / total       0.78      0.76      0.76      6000
+
+
+The Dev Accuracy of Naive Bayes Classifier is: 0.7621666666666667
+             precision    recall  f1-score   support
+
+  discovery       0.86      0.71      0.78      2000
+      story       0.65      0.88      0.74      2000
+      essay       0.85      0.70      0.77      2000
+
+avg / total       0.79      0.76      0.76      6000
+
+
+==================================================================
+#### svm experiment 3
+
+==================================================================
+#### fastText
+
+(TestEnv3) ➜  fastText git:(master) ✗ ./fasttext test models/default.bin data/news/test.word
+N	36000
+P@1	0.773
+R@1	0.773
+(TestEnv3) ➜  fastText git:(master) ✗ ./fasttext test models/default.bin data/news/train.txt
+N	156000
+P@1	0.949
+R@1	0.949
+==================================================================
+#### fastText -epoch 25
+(TestEnv3) ➜  fastText git:(master) ✗ ./fasttext test models/default_epoch25.bin data/news/train.txt
+N	156000
+P@1	1
+R@1	1
+(TestEnv3) ➜  fastText git:(master) ✗ ./fasttext test models/default_epoch25.bin data/news/test.word
+N	36000
+P@1	0.753
+R@1	0.753
+==================================================================
+#### fastText -epoch 25  -lr 1.0 ngram=2
+(TestEnv3) ➜  fastText git:(master) ✗ ./fasttext test models/default_epoch25_lr1.0_ng2.bin data/news/train.txt
+N	156000
+P@1	1
+R@1	1
+(TestEnv3) ➜  fastText git:(master) ✗ ./fasttext test models/default_epoch25_lr1.0_ng2.bin data/news/test.word
+N	36000
+P@1	0.763
+R@1	0.763
+==================================================================
+#### cnnText
+<>DEV epoch: 5 | loss:1.1113914251327515 | acc: 0.7911666631698608
+2019-06-10 15:16:48,727 : INFO : <>Train epoch: 6 > step:1 | loss:0.2562597990036011 | acc: 1.0
+2019-06-10 15:17:12,191 : INFO : <>Test epoch: 6 > step:1 | loss:1.164033055305481 | acc: 0.7773333191871643
+2019-06-10 15:19:32,105 : INFO : <>Train epoch: 6 > step:101 | loss:0.24220822751522064 | acc: 0.984375
+2019-06-10 15:19:52,346 : INFO : <>Test epoch: 6 > step:101 | loss:1.1325231790542603 | acc: 0.8196666836738586
+<>DEV epoch: 6 | loss:0.7868123054504395 | acc: 0.8845000267028809
+2019-06-10 15:22:14,423 : INFO : <>Train epoch: 7 > step:1 | loss:0.2167595624923706 | acc: 1.0
+2019-06-10 15:22:32,596 : INFO : <>Test epoch: 7 > step:1 | loss:0.8098621368408203 | acc: 0.8774999976158142
+2019-06-10 15:24:53,912 : INFO : <>Train epoch: 7 > step:101 | loss:0.19469036161899567 | acc: 1.0
+2019-06-10 15:25:10,674 : INFO : <>Test epoch: 7 > step:101 | loss:1.3241509199142456 | acc: 0.8230000138282776
+<>DEV epoch: 7 | loss:0.7960073947906494 | acc: 0.8824999928474426
+2019-06-10 15:27:38,979 : INFO : <>Train epoch: 8 > step:1 | loss:0.1864420473575592 | acc: 1.0
+2019-06-10 15:27:56,971 : INFO : <>Test epoch: 8 > step:1 | loss:0.8197293281555176 | acc: 0.8761666417121887
+2019-06-10 15:30:45,319 : INFO : <>Train epoch: 8 > step:101 | loss:0.17065618932247162 | acc: 1.0
+2019-06-10 15:31:03,115 : INFO : <>Test epoch: 8 > step:101 | loss:1.4771034717559814 | acc: 0.7973333597183228
+<>DEV epoch: 8 | loss:1.0778344869613647 | acc: 0.8558333516120911
+2019-06-10 15:33:42,863 : INFO : <>Train epoch: 9 > step:1 | loss:0.17550958693027496 | acc: 0.984375
+2019-06-10 15:33:59,897 : INFO : <>Test epoch: 9 > step:1 | loss:1.0333330631256104 | acc: 0.8566666841506958
+2019-06-10 15:36:21,115 : INFO : <>Train epoch: 9 > step:101 | loss:0.16006366908550262 | acc: 1.0
+2019-06-10 15:36:37,986 : INFO : <>Test epoch: 9 > step:101 | loss:1.3176981210708618 | acc: 0.8166666626930237
+<>DEV epoch: 9 | loss:1.2116092443466187 | acc: 0.8364999890327454
+2019-06-10 15:38:37,840 : INFO : <>Train epoch: 10 > step:1 | loss:0.1488063633441925 | acc: 1.0
+2019-06-10 15:38:54,753 : INFO : <>Test epoch: 10 > step:1 | loss:1.2030656337738037 | acc: 0.8373333215713501
+2019-06-10 15:41:16,908 : INFO : <>Train epoch: 10 > step:101 | loss:0.13904555141925812 | acc: 1.0
+2019-06-10 15:41:38,288 : INFO : <>Test epoch: 10 > step:101 | loss:0.8067816495895386 | acc: 0.8778333067893982
+<>DEV epoch: 10 | loss:1.172016978263855 | acc: 0.8428333401679993
+
+==================================================================
+#### rnnText
