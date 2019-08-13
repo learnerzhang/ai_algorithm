@@ -3,7 +3,7 @@
 # @Time    : 2019-06-06 15:00
 # @Author  : zhangzhen
 # @Site    : 
-# @File    : rnntext.py
+# @File    : rnn_text.py
 # @Software: PyCharm
 import logging
 import argparse
@@ -131,8 +131,9 @@ class TextAttRNN(object):
         with tf.name_scope('attention'):
             r_list = []
             att_w = tf.Variable(tf.truncated_normal([self.hidden_size * 2, self.embed_size], stddev=0.1), name='att_w')
-            att_u = tf.Variable(tf.truncated_normal([self.embed_size, 1], stddev=0.1), name='att_u')
             att_b = tf.Variable(tf.constant(0.1, shape=[self.embed_size]), name='att_b')
+
+            att_u = tf.Variable(tf.truncated_normal([self.embed_size, 1], stddev=0.1), name='att_u')
             logging.info("att_w: {}, att_u: {}, att_b: {}".format(att_w.shape, att_u.shape, att_b.shape))
 
             for t in range(self.sequence_length):
@@ -152,7 +153,9 @@ class TextAttRNN(object):
             seq_weights = tf.reshape(seq_weights, [-1, self.sequence_length, 1])
 
             # sum_0_29_{att_i * seq_dim_i} -> (batch_size, sum_dim)
-            att_final_out = tf.reduce_sum(output * seq_weights, 1)
+            tmp_sum = output * seq_weights
+            logging.info("weight sum shape:{}".format(tmp_sum.shape))
+            att_final_out = tf.reduce_sum(tmp_sum, 1)
             logging.info("att shape: {}".format(seq_weights.shape))
             logging.info("final out shape: {}".format(att_final_out.shape))
 
@@ -220,9 +223,9 @@ if __name__ == '__main__':
                 # b_x： (batch_size, sequence_length)
                 # b_y： (batch_size, )
                 summary, loss, acc, _ = sess.run([merged, textRNN.loss_val, textRNN.accuracy, textRNN.train_op],
-                    feed_dict={textRNN.input_x: b_x,
-                               textRNN.input_y: b_y,
-                               textRNN.dropout_keep_prob: FLAGS.keep_prob})
+                                                 feed_dict={textRNN.input_x: b_x,
+                                                            textRNN.input_y: b_y,
+                                                            textRNN.dropout_keep_prob: FLAGS.keep_prob})
                 train_writer.add_summary(summary, step_count)
                 # logging.info('%sth iter %s> loss: %s' % (i, 10 * '-', loss))
 

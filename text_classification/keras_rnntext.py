@@ -3,7 +3,7 @@
 # @Time    : 2019-06-06 15:00
 # @Author  : zhangzhen
 # @Site    : 
-# @File    : rnntext.py
+# @File    : rnn_text.py
 # @Software: PyCharm
 import logging
 import argparse

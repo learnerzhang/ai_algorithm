@@ -3,7 +3,7 @@
 # @Time    : 2019-06-05 17:55
 # @Author  : zhangzhen
 # @Site    : 
-# @File    : cnntext.py
+# @File    : cnn_text.py
 # @Software: PyCharm
 import logging
 import argparse
@@ -232,11 +232,13 @@ if __name__ == '__main__':
         test_writer = tf.summary.FileWriter('/tmp/textcnn/test')
         sess.run(tf.global_variables_initializer())
         step_count = 0
+        best = 0
         for epoch in range(FLAGS.epoches):
             for i, (b_x, b_y) in enumerate(batch(train_X, train_y, batch_size=32, seed=1111)):
                 step_count += 1
                 # b_x： (batch_size, sequence_length)
                 # b_y： (batch_size, )
+                # logging.info("({}, {}), {}".format(len(b_x), len(b_x[0]), len(b_y)))
                 summary, loss, possibility, W_projection_value, acc, _ = sess.run(
                     [merged, textCNN.loss_val, textCNN.possibility, textCNN.W_projection, textCNN.accuracy,
                      textCNN.train_op],

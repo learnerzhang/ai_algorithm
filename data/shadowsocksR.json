@@ -1,0 +1,40 @@
+{
+  "index": 0,
+  "random": false,
+  "global": false,
+  "enabled": true,
+  "shareOverLan": false,
+  "isDefault": false,
+  "localPort": 1080,
+  "pacUrl": null,
+  "useOnlinePac": false,
+  "reconnectTimes": 3,
+  "randomAlgorithm": 0,
+  "TTL": 0,
+  "proxyEnable": false,
+  "proxyType": 0,
+  "proxyHost": null,
+  "proxyPort": 0,
+  "proxyAuthUser": null,
+  "proxyAuthPass": null,
+  "authUser": null,
+  "authPass": null,
+  "autoban": false,
+  "configs": [
+    {
+      "obfsparam": "e4eab10331.download.windowsupdate.com",
+      "protoparam": "10331:CvtydJ",
+      "remarks": "0.15元/G丨港10丨香港电讯",
+      "group": "提莫加速器",
+      "server": "hk10.mogu.icu",
+      "server_port": 666,
+      "protocol": "auth_aes128_md5",
+      "method": "aes-256-cfb",
+      "obfs": "http_simple",
+      "password": "keADJG",
+      "remarks_base64": "MC4xNeWFgy9H5Lio5rivMTDkuKjpppnmuK/nlLXorq8=",
+      "protocolparam": "10331:CvtydJ",
+      "enable": true
+    }
+  ]
+}
