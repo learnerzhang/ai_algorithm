@@ -9,7 +9,9 @@ import os
 import codecs
 import collections
 
-file_dir = '/Users/zhangzhen/data/news_classification'
+from utils.path import DATA_PATH
+
+file_dir = os.path.join(DATA_PATH, 'news_classification')
 
 train_file = 'train.txt'
 test_file = 'test.word'

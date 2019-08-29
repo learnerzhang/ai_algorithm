@@ -7,11 +7,14 @@
 # @Software: PyCharm
 import logging
 import argparse
+import os
+
 import tensorflow as tf
 import numpy as np
 
 from data.news_classification import create_vocabulary, read_news_corpus
 from text_classification import data2Vecter, batch, corpus_filter
+from utils.path import MODEL_PATH
 
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.DEBUG)
 
@@ -35,6 +38,7 @@ def args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--summaries_dir", type=str, default="/tmp/fasttext_logs",
                         help="Path to save summary logs for TensorBoard.")
+    parser.add_argument("--model_path", type=str, default=os.path.join(MODEL_PATH, 'tf_cnn_text'), help="模型的位置")
     parser.add_argument("--epoches", type=int, default=12, help="epoches")
     parser.add_argument("--num_classes", type=int, default=18, help="the nums of classify")
     parser.add_argument("--lr", type=float, default=0.001, help="learning rate for opt")
@@ -61,6 +65,7 @@ class TextCNN(object):
 
     def __init__(self, initializer=tf.random_normal_initializer(stddev=0.1)):
         # set hyperparamter
+        self.model_path = FLAGS.model_path
         self.num_classes = FLAGS.num_classes
         self.batch_size = FLAGS.batch_size
         self.sequence_length = FLAGS.sequence_length
@@ -228,8 +233,8 @@ if __name__ == '__main__':
 
     with tf.Session() as sess:
         merged = tf.summary.merge_all()
-        train_writer = tf.summary.FileWriter('/tmp/textcnn/train', sess.graph)
-        test_writer = tf.summary.FileWriter('/tmp/textcnn/test')
+        train_writer = tf.summary.FileWriter(os.path.join(textCNN.model_path, 'summaries', 'train'), sess.graph)
+        test_writer = tf.summary.FileWriter(os.path.join(textCNN.model_path, 'summaries', 'test'))
         sess.run(tf.global_variables_initializer())
         step_count = 0
         best = 0
@@ -250,7 +255,8 @@ if __name__ == '__main__':
                 # logging.info('%sth iter %s> loss: %s' % (i, 10 * '-', loss))
 
                 if i % 20 == 0:
-                    logging.info("<>Train epoch: {} > step:{} | loss:{} | acc: {} ".format(epoch + 1, step_count, loss, acc))
+                    logging.info(
+                        "<>Train epoch: {} > step:{} | loss:{} | acc: {} ".format(epoch + 1, step_count, loss, acc))
 
                     test_summary, test_loss, test_acc = sess.run([merged, textCNN.loss_val, textCNN.accuracy],
                                                                  feed_dict={textCNN.input_x: test_X,
@@ -258,7 +264,9 @@ if __name__ == '__main__':
                                                                             textCNN.dropout_keep_prob: 1.0,
                                                                             textCNN.tst: True})
                     test_writer.add_summary(test_summary, step_count)  # 训练数据集产生的
-                    logging.info("<>Test epoch: {} > step:{} | loss:{} | acc: {} ".format(epoch + 1, step_count, test_loss, test_acc))
+                    logging.info(
+                        "<>Test epoch: {} > step:{} | loss:{} | acc: {} ".format(epoch + 1, step_count, test_loss,
+                                                                                 test_acc))
 
             dev_loss, dev_acc = sess.run([textCNN.loss_val, textCNN.accuracy],
                                          feed_dict={textCNN.input_x: dev_X, textCNN.input_y: dev_y,
